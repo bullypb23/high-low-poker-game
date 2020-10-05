@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container } from './App.styles';
+import { Stage, Layer, Rect} from 'react-konva';
+import Global from './Global';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Global />
+      betting
+      <Stage width={window.innerWidth} height={window.innerHeight}>
+        <Layer>
+          <Rect width={120} height={200} x={20} y={120} fill="red" />
+        </Layer>
+      </Stage>
+    </Container>
   );
 }
 

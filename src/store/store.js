@@ -1,8 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, combineReducers } from 'redux';
 import game from './reducers/game';
 
 const rootReducer = combineReducers({
-	game: game,
+	game,
 });
 
 export const store = createStore(

@@ -10,7 +10,9 @@ import spade from '../../assets/spade.png';
 import club from '../../assets/club.png';
 import heart from '../../assets/heart.png';
 
-const Card = ({ card }) => {
+const Card = ({
+	card, X, Y, text, width, height,
+}) => {
 	let img;
 	switch (card.suits) {
 	case 'Club':
@@ -29,13 +31,16 @@ const Card = ({ card }) => {
 	}
 	const [imgSrc] = useImage(img);
 	const content = (
-		<Group x={500} y={20} width={150} height={250}>
-			<Rect fill="white" width={150} height={250} cornerRadius={10} />
-			<Text text={card.card} fill={card.color} width={150} height={250} padding={10} fontSize={28} align="left" />
-			<Image image={imgSrc} x={10} y={40} width={20} height={20} />
-			<Text text={card.card} fill={card.color} width={150} height={250} padding={10} rotation={180} x={150} y={240} fontSize={28} />
-			<Image image={imgSrc} x={140} y={200} width={20} height={20} rotation={180} />
-			<Image image={imgSrc} x={70 / 2} y={170 / 2} width={80} height={80} />
+		<Group x={X} y={Y} width={width} height={height}>
+			<Rect fill="white" width={width} height={height} cornerRadius={10} stroke="black" strokeWidth={1} />
+			<Text text={card.card} fill={card.color} width={width} height={height} padding={10} fontSize={width > 100 ? 28 : 20} align="left" />
+			<Image image={imgSrc} x={10} y={width > 100 ? 40 : 30} width={width > 100 ? 20 : 15} height={width > 100 ? 20 : 15} />
+			<Text text={card.card} fill={card.color} width={width} height={height} padding={10} rotation={180} x={width} y={height} fontSize={width > 100 ? 28 : 20} />
+			<Image image={imgSrc} x={width > 100 ? width - 10 : width - 5} y={width > 100 ? height - 40 : height - 30} width={width > 100 ? 20 : 15} height={width > 100 ? 20 : 15} rotation={180} />
+			<Image image={imgSrc} x={width / 4} y={(height - width / 2) / 2} width={width / 2} height={width / 2} />
+			{text !== '' ? (
+				<Text text={text} fill={card.color} width={width} height={height} padding={10} fontSize={width > 100 ? 28 : 20} align="left" verticalAlign="bottom" />
+			) : null}
 		</Group>
 	);
 
@@ -44,6 +49,15 @@ const Card = ({ card }) => {
 
 Card.propTypes = {
 	card: propTypes.object.isRequired,
+	X: propTypes.number.isRequired,
+	Y: propTypes.number.isRequired,
+	width: propTypes.number.isRequired,
+	height: propTypes.number.isRequired,
+	text: propTypes.string,
+};
+
+Card.defaultProps = {
+	text: '',
 };
 
 export default Card;

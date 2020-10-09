@@ -1,30 +1,14 @@
 /* eslint-disable no-use-before-define */
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
 	Switch, Route, Redirect, withRouter,
 } from 'react-router-dom';
-import { connect } from 'react-redux';
-import propTypes from 'prop-types';
 import { Container } from './App.styles';
 import Global from './Global';
 import HomePage from './components/HomePage/HomePage';
 import Game from './components/Game/Game';
-import { deckArray } from './utilities/cardsArray';
-import * as actions from './store/actions/game';
 
-function App({ shuffleArray }) {
-	useEffect(() => {
-		const shuffledArray = shuffle(deckArray);
-		shuffleArray(shuffledArray);
-	}, []);
-
-	function shuffle(array) {
-		for (let i = array.length - 1; i > 0; i -= 1) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]];
-		}
-		return array;
-	}
+function App() {
 	return (
 		<Container>
 			<Global />
@@ -37,20 +21,4 @@ function App({ shuffleArray }) {
 	);
 }
 
-App.propTypes = {
-	shuffleArray: propTypes.func.isRequired,
-};
-
-const mapStateToProps = () => (
-	{
-
-	}
-);
-
-const mapDispatchToProps = dispatch => (
-	{
-		shuffleArray: arr => dispatch(actions.handleCardsShuffle(arr)),
-	}
-);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(App);

@@ -2,31 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import {
-	Wrapper, HeadingContainer, Heading, Input, Button,
+	Wrapper, HeadingContainer, Heading, Input, Button, Container, Form,
 } from './HomePage.styles';
 import * as actions from '../../store/actions/game';
 
-const HomePage = ({ handleNameChange, history, handleGameStart }) => {
-	const goToGamePage = () => {
-		handleGameStart();
+const HomePage = ({ handleNameChange, history, name }) => {
+	const goToGamePage = (e) => {
+		e.preventDefault();
 		history.push('/game');
 	};
 
 	return (
 		<Wrapper>
 			<HeadingContainer>
-				<Heading>Welcome to High Low Game</Heading>
+				<Heading>High Low Poker Game</Heading>
 			</HeadingContainer>
-			<Input onChange={e => handleNameChange(e.target.value)} />
-			<Button onClick={goToGamePage}>Play</Button>
+			<Container>
+				<Form onSubmit={goToGamePage}>
+					<Input onChange={e => handleNameChange(e.target.value)} value={name || localStorage.getItem('name')} placeholder="Enter Your Name" />
+					<Button type="submit">Play</Button>
+				</Form>
+			</Container>
 		</Wrapper>
 	);
 };
 
 HomePage.propTypes = {
 	handleNameChange: propTypes.func.isRequired,
-	handleGameStart: propTypes.func.isRequired,
 	history: propTypes.object.isRequired,
+	name: propTypes.string.isRequired,
 };
 
 const mapStateToProps = state => (
@@ -38,7 +42,6 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
 	{
 		handleNameChange: name => dispatch(actions.handleNameChange(name)),
-		handleGameStart: () => dispatch(actions.handleGameStart()),
 	}
 );
 

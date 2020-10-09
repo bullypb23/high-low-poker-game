@@ -20,7 +20,7 @@
 		"react/forbid-prop-types": 0,
 		"import/prefer-default-export": 0,
 		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn",
+		"react-hooks/exhaustive-deps": 0,
 		"react/jsx-max-props-per-line": 1,
 		"semi": 2,
 		"indent": [
